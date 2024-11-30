@@ -36,9 +36,9 @@ jobs:
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv
           coverage: none
 
-      - name: List files
+      - name: List files in backend/src
         run: |
-          ls -la
+          ls -la backend/src
 
 #      - name: Run composer install
 #        run: composer install -n --prefer-dist
