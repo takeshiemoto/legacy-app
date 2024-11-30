@@ -38,11 +38,14 @@ jobs:
 
       - name: Run composer install
         run: composer install -n --prefer-dist
+        working-directory: backend/src
 
       - name: Prepare Laravel Application
         run: |
           cp .env.ci .env
           php artisan key:generate
+        working-directory: backend/src
 
       - name: Run tests
         run: php artisan test
+        working-directory: backend/src
