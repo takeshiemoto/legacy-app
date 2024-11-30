@@ -26,8 +26,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          path: backend/src
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -36,17 +34,16 @@ jobs:
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv
           coverage: none
 
-      - name: List files in backend/src
-        run: |
-          ls -la backend/src
+      - name: Run composer install
+        run: composer install -n --prefer-dist
+        working-directory: backend/src
 
-#      - name: Run composer install
-#        run: composer install -n --prefer-dist
-#
-#      - name: Prepare Laravel Application
-#        run: |
-#          cp .env.ci .env
-#          php artisan key:generate
-#
-#      - name: Run tests
-#        run: php artisan test
+      - name: Prepare Laravel Application
+        run: |
+          cp .env.ci .env
+          php artisan key:generate
+        working-directory: backend/src
+
+      - name: Run tests
+        run: php artisan test
+        working-directory: backend/src
