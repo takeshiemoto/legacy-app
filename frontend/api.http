@@ -4,3 +4,27 @@
 GET {{baseUrl}}/health
 
 ###
+
+GET {{baseUrl}}/users
+
+###
+
+# ログイン
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+  "email": "legacy.app@example.com",
+  "password": "P@ssw0rd"
+}
+
+###
+# 登録
+POST {{baseUrl}}/register
+Content-Type: application/json
+
+{
+  "name": "legacy3",
+  "email": "legacy.app4@example.com",
+  "password": "P@ssw0rd"
+}
