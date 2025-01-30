@@ -4,5 +4,15 @@
     "config:recommended",
     "group:allNonMajor",
     ":disableRateLimiting"
-  ]
+  ],
+  "composer": {
+    "enabled": true,
+    "rangeStrategy": "pin",
+    "vulnerabilityAlerts": {
+      "enabled": true,
+      "labels": [
+        "security"
+      ]
+    }
+  }
 }
