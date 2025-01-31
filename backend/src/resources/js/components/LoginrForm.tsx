@@ -3,38 +3,44 @@ import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import { type FormEvent, useState } from "react";
 
-export const RegisterForm = () => {
-  const [name, setName] = useState("");
+const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
-    await axios.post("/api/register", {
-      name,
-      email,
-      password,
-    });
+    try {
+      // CSRFトークンを取得
+      await axios.get("/sanctum/csrf-cookie", {
+        withCredentials: true,
+      });
 
-    router.visit("/auth/login");
+      // // ログインリクエスト
+      await axios.post(
+        "/api/login",
+        {
+          email,
+          password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        },
+      );
+
+      router.visit("/internal/dashboard");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
     <Container maxWidth="sm">
       <Box sx={{ mt: 4 }}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          会員登録
-        </Typography>
         <form onSubmit={handleSubmit}>
-          <TextField
-            label="名前"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
           <TextField
             label="メールアドレス"
             variant="outlined"
@@ -59,10 +65,12 @@ export const RegisterForm = () => {
             fullWidth
             sx={{ mt: 2 }}
           >
-            登録
+            ログイン
           </Button>
         </form>
       </Box>
     </Container>
   );
 };
+
+export default LoginForm;

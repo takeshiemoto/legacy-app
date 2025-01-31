@@ -9,8 +9,8 @@ createInertiaApp({
   title: (title) => `Demo - ${title}`,
   resolve: async (name) => {
     return (await resolvePageComponent(
-      `./Pages/${name}.tsx`,
-      import.meta.glob("./Pages/**/*.tsx"),
+      `./pages/${name}.tsx`,
+      import.meta.glob("./pages/**/*.tsx"),
     )) as { default: { layout?: (pageProps: ReactNode) => ReactNode } };
   },
   setup({ el, App, props }) {
