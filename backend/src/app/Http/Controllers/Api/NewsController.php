@@ -6,15 +6,26 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreNewsRequest;
 use App\Http\Requests\UpdateNewsRequest;
 use App\Models\News;
+use Illuminate\Database\Eloquent\Collection;
 
 class NewsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): Collection
     {
-        //
+        return News::query()
+            ->with('user:id,name')  // ユーザー情報も含める（必要な項目のみ）
+            ->orderBy('created_at', 'desc')  // 新しい順
+            ->get([
+                'id',
+                'public_id',
+                'title',
+                'user_id',
+                'created_at',
+                'updated_at'
+            ]);
     }
 
     /**

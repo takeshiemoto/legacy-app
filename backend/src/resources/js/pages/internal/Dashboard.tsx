@@ -6,42 +6,39 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import { v4 as uuidv4 } from "uuid";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
-const newsItems = [
-  { id: uuidv4(), title: "News 1", description: "This is the first news item" },
-  {
-    id: uuidv4(),
-    title: "News 2",
-    description: "This is the second news item",
-  },
-  { id: uuidv4(), title: "News 3", description: "This is the third news item" },
-  {
-    id: uuidv4(),
-    title: "News 4",
-    description: "This is the fourth news item",
-  },
-  { id: uuidv4(), title: "News 5", description: "This is the fifth news item" },
-  { id: uuidv4(), title: "News 6", description: "This is the sixth news item" },
-  {
-    id: uuidv4(),
-    title: "News 7",
-    description: "This is the seventh news item",
-  },
-  {
-    id: uuidv4(),
-    title: "News 8",
-    description: "This is the eighth news item",
-  },
-  { id: uuidv4(), title: "News 9", description: "This is the ninth news item" },
-  {
-    id: uuidv4(),
-    title: "News 10",
-    description: "This is the tenth news item",
-  },
-];
+interface News {
+  id: number;
+  public_id: string;
+  title: string;
+  user_id: number;
+  created_at: string | null;
+  updated_at: string | null;
+  deleted_at: string | null;
+  user: {
+    id: number;
+    name: string;
+  };
+}
 
 const Dashboard = () => {
+  const [newsItems, setNewsItems] = useState<News[]>([]);
+
+  useEffect(() => {
+    const fetchNews = async () => {
+      try {
+        const response = await axios.get("/api/v1/news");
+        setNewsItems(response.data);
+      } catch (error) {
+        console.error("Error fetching news:", error);
+      }
+    };
+
+    fetchNews();
+  }, []);
+
   return (
     <Container maxWidth="md">
       <Box sx={{ my: 4 }}>
@@ -59,7 +56,7 @@ const Dashboard = () => {
                 borderRadius: "8px",
               }}
             >
-              <ListItemText primary={item.title} secondary={item.description} />
+              <ListItemText primary={item.title} secondary={item.user.id} />
             </ListItem>
           ))}
         </List>
