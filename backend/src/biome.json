@@ -6,7 +6,7 @@
     "useIgnoreFile": false
   },
   "files": {
-    "include": ["resources/js", "resources/css"],
+    "include": ["resources/js", "resources/css", "**/*/*.json", "**/*/*.md"],
     "ignoreUnknown": false,
     "ignore": ["**/*.d.ts"]
   },
