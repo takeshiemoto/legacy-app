@@ -24,7 +24,7 @@ POST {{baseUrl}}/register
 Content-Type: application/json
 
 {
-  "name": "legacy3",
-  "email": "legacy.app4@example.com",
+  "name": "legacy5",
+  "email": "legacy.app5@example.com",
   "password": "P@ssw0rd"
 }
