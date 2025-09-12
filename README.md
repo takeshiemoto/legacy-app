@@ -1,23 +1,29 @@
-# legacy app
+# Ubuntu Minimal Docker Environment
 
-## Setup
+最小限の Ubuntu コンテナを起動するためのリポジトリです。
 
-```shell
-docker compose up -d
+## 前提
+- Docker for Mac が動作していること
+
+## ビルド
+```sh
+docker build -t ubuntu-min .
 ```
 
-```shell
-docker compose exec app bash
-
-# in app container
-composer install
-cp .env.example .env
-php artisan key:generate
-php artisan migrate
+## 起動（対話）
+```sh
+docker run --rm -it --name ubuntu-min -v "$(pwd)":/workspace ubuntu-min
 ```
-## Testing
+- カレントディレクトリを `/workspace` にマウントします
+- root の `bash` に入ります
 
-```shell
-docker compose exec app bash
-php artisan test
+## 起動（バックグラウンド）とログイン
+```sh
+docker run -d --name ubuntu-min -v "$(pwd)":/workspace ubuntu-min sleep infinity
+docker exec -it ubuntu-min bash
+```
+
+## 停止・削除
+```sh
+docker stop ubuntu-min && docker rm ubuntu-min
 ```
