@@ -1,4 +1,4 @@
-# Ubuntu Minimal Docker Environment
+# Ubuntu Sandbox Docker
 
 最小限の Ubuntu コンテナを起動するためのリポジトリです。
 
@@ -7,23 +7,23 @@
 
 ## ビルド
 ```sh
-docker build -t ubuntu-min .
+docker build -t ubuntu-sandbox .
 ```
 
 ## 起動（対話）
 ```sh
-docker run --rm -it --name ubuntu-min -v "$(pwd)":/workspace ubuntu-min
+docker run --rm -it --name ubuntu-sandbox -v "$(pwd)":/workspace ubuntu-sandbox
 ```
 - カレントディレクトリを `/workspace` にマウントします
 - root の `bash` に入ります
 
 ## 起動（バックグラウンド）とログイン
 ```sh
-docker run -d --name ubuntu-min -v "$(pwd)":/workspace ubuntu-min sleep infinity
-docker exec -it ubuntu-min bash
+docker run -d --name ubuntu-sandbox -v "$(pwd)":/workspace ubuntu-sandbox sleep infinity
+docker exec -it ubuntu-sandbox bash
 ```
 
 ## 停止・削除
 ```sh
-docker stop ubuntu-min && docker rm ubuntu-min
+docker stop ubuntu-sandbox && docker rm ubuntu-sandbox
 ```
